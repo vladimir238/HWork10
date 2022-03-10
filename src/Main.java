@@ -7,6 +7,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
 
         int[] arrYear = new int[6];
+        String region="Belgorod";
         Scanner scanner = new Scanner(new FileInputStream("src/table.txt"));
         int i = 0;
         while (scanner.hasNextLine()) {
@@ -15,24 +16,23 @@ public class Main {
                 String[] year = scanner.nextLine().split(";");
 
                 for (int s : stringArrInt(year)) System.out.println(s);
-                //arrYear = new int[stringArrInt(year).length];
                 arrYear = stringArrInt(year);
                 System.out.println("Массив года ");
 
 
             } else {
                 String[] volumeInfo = scanner.nextLine().split(";");
-                for (double s : stringArrDouble(volumeInfo)) System.out.println(s);
-                System.out.println("Массив урожая ");
-                double[] arrVolume = stringArrDouble(volumeInfo);
-                for (int f = 0; f < arrVolume.length - 1; f++) {
-                    //     System.out.println("Вход в цикл");
-                    if (compNum(arrVolume[f], arrVolume[f + 1])) {
-                        System.out.println("Part ;" + arrYear[f] + ";" + arrYear[f + 1]);
-                        System.out.println("Регион ;" + +arrVolume[f] + " ; " + arrVolume[f + 1]);
+                if (townGet(volumeInfo[0]).equals(region)) {
+                    for (double s : stringArrDouble(volumeInfo)) System.out.println(s);
+                    System.out.println("Массив урожая ");
+                    double[] arrVolume = stringArrDouble(volumeInfo);
+                    for (int f = 0; f < arrVolume.length - 1; f++) {
+                        if (compNum(arrVolume[f], arrVolume[f + 1])) {
+                            System.out.println("Part ;" + arrYear[f] + ";" + arrYear[f + 1]);
+                            System.out.println(townGet(volumeInfo[0]) + arrVolume[f] + " ; " + arrVolume[f + 1]);
+                        }
                     }
                 }
-
 
             }
         }
@@ -72,6 +72,10 @@ public class Main {
         return false;
 
 
+    }
+    public static String townGet (String regionTown){
+        String[] town=regionTown.split(" ");
+        return town[0];
     }
 }
 
