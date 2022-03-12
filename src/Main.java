@@ -1,13 +1,16 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
 
         int[] arrYear = new int[6];
-        String region="Belgorod";
+        String region="Дальневосточный";
+        FileWriter writer = new FileWriter("src//output.txt", false);
         Scanner scanner = new Scanner(new FileInputStream("src/table.txt"));
         int i = 0;
         while (scanner.hasNextLine()) {
@@ -21,15 +24,25 @@ public class Main {
 
 
             } else {
+
                 String[] volumeInfo = scanner.nextLine().split(";");
-                if (townGet(volumeInfo[0]).equals(region)) {
+                //  FileWriter writer = new FileWriter("src//output.txt", true);
+               // writer.write(resString.trim());
+
+                if (townGet(volumeInfo[1]).trim().equals(region)) {
                     for (double s : stringArrDouble(volumeInfo)) System.out.println(s);
                     System.out.println("Массив урожая ");
                     double[] arrVolume = stringArrDouble(volumeInfo);
                     for (int f = 0; f < arrVolume.length - 1; f++) {
                         if (compNum(arrVolume[f], arrVolume[f + 1])) {
-                            System.out.println(" Год ;" + arrYear[f] + ";" + arrYear[f + 1]);
-                            System.out.println(townGet(volumeInfo[0])+"  " + arrVolume[f] + " ; " + arrVolume[f + 1]);
+                          String s1= " Год ;" + arrYear[f] + ";" + arrYear[f + 1];
+                          String s2=townGet(volumeInfo[0])+"  " + arrVolume[f] + " ; " + arrVolume[f + 1];
+                          writer.write(s1);
+                          writer.write("\n");
+                          writer.write(s2);
+                          writer.write("\n");
+                          writer.flush();
+
                         }
                     }
                 }
@@ -77,6 +90,12 @@ public class Main {
         String[] town=regionTown.split(" ");
         return town[0];
     }
+//    public static void printInFile() throws IOException {
+//        FileWriter writer1 = new FileWriter("src//output1.txt", false);
+//        writer1.write("ugdhgfkjghkfhdkgh");
+//        writer1.flush();
+//    }
+
 }
 
 
