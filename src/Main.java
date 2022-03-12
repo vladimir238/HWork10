@@ -7,31 +7,35 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        System.out.println("Программа производит чтение данных из файла table.txt .");
+        System.out.println("Выводит результаты в файл output.txt ");
+
 
         int[] arrYear = new int[6];
-        String region="Дальневосточный";
+        String region="Центральный";
         FileWriter writer = new FileWriter("src//output.txt", false);
+        writer.write("Рост урожая в регионе  "+ region);
+        writer.write("\n");
+        writer.write("Более чем на 6 %.По городам и годам");
+        writer.write("\n");
+
         Scanner scanner = new Scanner(new FileInputStream("src/table.txt"));
         int i = 0;
+        // читаем строки из файла
         while (scanner.hasNextLine()) {
             i++;
             if (i == 1) {
                 String[] year = scanner.nextLine().split(";");
 
-                for (int s : stringArrInt(year)) System.out.println(s);
-                arrYear = stringArrInt(year);
-                System.out.println("Массив года ");
+                arrYear = stringArrInt(year); //Преобразуем строку в массив ,годы.
 
 
             } else {
 
                 String[] volumeInfo = scanner.nextLine().split(";");
-                //  FileWriter writer = new FileWriter("src//output.txt", true);
-               // writer.write(resString.trim());
+
 
                 if (townGet(volumeInfo[1]).trim().equals(region)) {
-                    for (double s : stringArrDouble(volumeInfo)) System.out.println(s);
-                    System.out.println("Массив урожая ");
                     double[] arrVolume = stringArrDouble(volumeInfo);
                     for (int f = 0; f < arrVolume.length - 1; f++) {
                         if (compNum(arrVolume[f], arrVolume[f + 1])) {
@@ -52,9 +56,8 @@ public class Main {
     }
 
 
-    public static void solution(String district, int fromYear, int toYear) {
-    }
-// Возвращает массив чисел из строки
+
+// Возвращает массив чисел из строки типа int
 
     public static int[] stringArrInt(String[] year1) {
         int[] yearNum;
@@ -66,6 +69,7 @@ public class Main {
         return yearNum;
 
     }
+    //Возвращает массив чисел типа double
 
     public static double[] stringArrDouble(String[] volume) {
         double[] volumeNum;
@@ -77,7 +81,7 @@ public class Main {
         return volumeNum;
 
     }
-
+    // Возвращает true,если в предыдущем году урожайность выше на 6 %
     public static boolean compNum(double num1, double num2) {
 
         if ((((num2 - num1) / num1) * 100) >=6) return true;
@@ -86,15 +90,11 @@ public class Main {
 
 
     }
+    // Возвращает название города,т.к строка из 2 слов.
     public static String townGet (String regionTown){
         String[] town=regionTown.split(" ");
         return town[0];
     }
-//    public static void printInFile() throws IOException {
-//        FileWriter writer1 = new FileWriter("src//output1.txt", false);
-//        writer1.write("ugdhgfkjghkfhdkgh");
-//        writer1.flush();
-//    }
 
 }
 
