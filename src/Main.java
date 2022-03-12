@@ -28,8 +28,8 @@ public class Main {
                     double[] arrVolume = stringArrDouble(volumeInfo);
                     for (int f = 0; f < arrVolume.length - 1; f++) {
                         if (compNum(arrVolume[f], arrVolume[f + 1])) {
-                            System.out.println("Part ;" + arrYear[f] + ";" + arrYear[f + 1]);
-                            System.out.println(townGet(volumeInfo[0]) + arrVolume[f] + " ; " + arrVolume[f + 1]);
+                            System.out.println(" Год ;" + arrYear[f] + ";" + arrYear[f + 1]);
+                            System.out.println(townGet(volumeInfo[0])+"  " + arrVolume[f] + " ; " + arrVolume[f + 1]);
                         }
                     }
                 }
@@ -67,7 +67,7 @@ public class Main {
 
     public static boolean compNum(double num1, double num2) {
 
-        if ((((num2 - num1) / num1) * 100) >= 7) return true;
+        if ((((num2 - num1) / num1) * 100) >=6) return true;
 
         return false;
 
